@@ -1,0 +1,50 @@
+{{ define "Index" }}
+{{ template "Header" }}
+<style>
+    .btn-bd-primary {
+        color: #fff;
+        background-color: #7952b3;
+        border-color: #7952b3;
+    }
+</style>
+<div class="container">
+    <h2> List Users </h2>
+
+    <p>
+        <a href="/add" class="btn btn-bd-primary">Add User</a>
+    </p>
+    <table id="tabledata" class="display" style="width: 100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Role</th>
+                <th>Action</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range . }}
+            <tr>
+                <td>{{ .Id }}</td>
+                <td> {{ .Name }} </td>
+                <td>{{ .Age }} </td>
+                <td>{{ .Email }} </td>
+                <td>{{ .Gender }} </td>
+                <td>{{ .Role }} </td>
+                <td>
+                    <a href="/show?id={{ .Id }}" class="btn btn-primary">View</a>
+                    <a href="/edit?id={{ .Id }}" class="btn btn-primary">Edit</a>
+                    <a href="/delete?id={{ .Id }}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {{ end }}
+        </tbody>
+
+    </table>
+</div>
+{{ template "Footer" }}
+{{ end }}

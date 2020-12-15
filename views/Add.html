@@ -1,0 +1,67 @@
+{{ define "Add" }}
+{{ template "Header" }}
+<div class="container col-5">
+  <h2>Add User</h2>
+  <form method="POST" action="/add" id="addUser">
+    <div class="form-group">
+      <label> Name </label>
+      <input type="text" name="name" id="name" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label> Age </label>
+      <input type="number" name="age" id="age" class="form-control">
+    </div>
+    <div class="form-group">
+      <label> Email </label>
+      <input type="text" name="email" id="email" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label> Gender </label>
+      <select name="gender" id="gender">
+        <option value="laki-laki">Laki - laki</option>
+        <option value="perempuan">Perempuan</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label> Roles </label>
+      <select name="role" id="role">
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </select>
+    </div>
+    <input type="submit" value="Add" class="btn btn-primary" />
+  </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $("#addUser").on("submit", function (e) {
+      e.preventDefault();
+
+      var $self = $(this);
+      var payload = JSON.stringify({
+        name: $('[name="name"]').val(),
+        age: $('[name="age"]').val(),
+        email: $('[name="email"]').val(),
+        gender: $('[name="gender"]').val(),
+        role: $('[name="role"]').val()
+      });
+
+      $.ajax({
+        url: $self.attr("action"),
+        type: $self.attr("method"),
+        data: payload,
+        contentType: 'application/json',
+      }).then(function (res) {
+        var data = JSON.parse(res)
+        if (data.code == "00") {
+          window.location.href = "http://localhost:9000/";
+        } else {
+          alert(data.message);
+        }
+      }).catch(function (a) {
+        alert("ERROR: " + a.responseText);
+      });
+    }); 
+  </script>
+</div>
+{{ template "Footer" }}
+{{ end }}

@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>
+            Add User
+        </title>
+    </head>
+    <body>
+        <form action="/add" method="post" id="addUser">
+            Name: <input type="text" name="name" id="name"> <br>
+            Age: <input type="number" name="age" id="age"> <br>
+            Email: <input type="text" name="email" id="email"> <br>
+            Gender: <select name="gender" id="gender">
+                <option value="laki-laki">Laki - laki</option>
+                <option value="perempuan">Perempuan</option>
+            </select> <br>
+            Role: <select name="role" id="role">
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $("#addUser").on("submit", function (e) {
+                e.preventDefault();
+
+                var $self = $(this);
+                var payload = JSON.stringify({
+                    name: $('[name="name"]').val(),
+                    age: $('[name="age"]').val(),
+                    email: $('[name="email"]').val(),
+                    gender: $('[name="gender"]').val(),
+                    role: $('[name="role"]').val()
+                });
+
+                $.ajax({
+                    url: $self.attr("action"),
+                    type: $self.attr("method"),
+                    data: payload,
+                    contentType: 'application/json',
+                }).then(function (res) {
+                    var data = JSON.parse(res)
+                    alert(data.message);
+                }).catch(function (a) {
+                    alert("ERROR: " + a.responseText);
+                });
+            }); 
+        </script>
+    </body>
+</html>

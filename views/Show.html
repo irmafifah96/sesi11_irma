@@ -1,0 +1,16 @@
+{{ define "Show" }}
+{{ template "Header" }}
+<div class="container">
+  <h2> Tool</h2>
+  <p><strong>Name:</strong> {{ .Name }} </p>
+  <p><strong>Age:</strong> {{ .Age }} </p>
+  <p><strong>Email:</strong>{{ .Email }}</p>
+  <p><strong>Password:</strong> {{ .Gender }} </p>
+  <p><strong>Gender:</strong> {{ .Role }} </p>
+  <p><strong>Role:</strong> {{ .Password }} </p>
+  <br />
+  <a href="/edit?id={{ .Id }}" class="btn btn-primary">Edit</a>
+  <a href="/" class="btn btn-primary">Go back to Index</a>
+</div>
+{{ template "Footer" }}
+{{ end }}
